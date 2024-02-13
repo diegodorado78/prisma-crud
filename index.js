@@ -8,6 +8,7 @@ async function main(){
     app.use(express.json())
     app.use('/api',usersRoutes)
     app.listen(3000)
+   
 }
 main()
   .then(async () => {

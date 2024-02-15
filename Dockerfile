@@ -1,18 +1,26 @@
-FROM node:18.18-alpine
+# Use the official Node.js image as the base image
+FROM node:lts
 
-# Establece el directorio de trabajo en la raíz del contenedor
+# Create and set the working directory
 WORKDIR /app
 
+# Copy package.json and package-lock.json to the container
 COPY package*.json ./
-COPY prisma ./prisma/
-# Instala las dependencias del proyecto
+
+# Install dependencies
 RUN npm install
 
-# Copia todos los archivos del proyecto a la raíz del contenedor
+# Copy the rest of the application code to the container
 COPY . .
+
+# Install Prisma
+RUN npm install prisma
+
+# Generate Prisma client
+RUN npx prisma generate
 
 # Expone el puerto 3000
 EXPOSE 3000
 
 # Comando por defecto para ejecutar la aplicación
-CMD ["npm", "start"]
+CMD ["npm","run","start"]

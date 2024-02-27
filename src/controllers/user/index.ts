@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { PrismaClient } from "@prisma/client"
-import { Id } from './user';
 import { IdParamSchema } from '../validations';
-import { log } from 'console';
+
 
 const prisma = new PrismaClient()
+
 // Get all users
 export const getUsers = async (req: Request, res: Response) => {
     try {
@@ -14,14 +14,13 @@ export const getUsers = async (req: Request, res: Response) => {
         console.error('Error getting users:', error);
     }
 };
+
+
 // Get  user id
-
 export const getUserById = async (req: Request, res: Response) => {
-    console.log(req.params);
+    //const validation = IdParamSchema.parse(req.params)
+    //console.log(validation);
     const { id } = req.params
-    // const id = IdParamSchema.parse(req.params);
-    console.log(typeof (id))
-
     try {
         const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
         if (user) res.send(user);

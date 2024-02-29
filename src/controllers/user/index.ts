@@ -18,8 +18,8 @@ export const getUsers = async (req: Request, res: Response) => {
 
 // Get  user id
 export const getUserById = async (req: Request, res: Response) => {
-    //const validation = IdParamSchema.parse(req.params)
-    //console.log(validation);
+    const validation = IdParamSchema.parse(req.params)
+    console.log(validation);
     const { id } = req.params
     try {
         const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });

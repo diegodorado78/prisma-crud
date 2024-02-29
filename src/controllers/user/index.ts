@@ -18,14 +18,20 @@ export const getUsers = async (req: Request, res: Response) => {
 
 // Get  user id
 export const getUserById = async (req: Request, res: Response) => {
-    const validation = IdParamSchema.parse(req.params)
-    console.log(validation);
+
     const { id } = req.params
     try {
+        const validation = IdParamSchema.parse(req.params)
+        console.log(validation);
         const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
         if (user) res.send(user);
         else return res.status(400).send({ message: 'User not found' });
     } catch (e) {
-        return res.status(400).send((e as Error).message);
+        console.log(e);
+
+        const user = await prisma.user.findUnique({ where: { id: parseInt(id) } });
+        if (user) return res.send(user);
+
+        //return res.status(400).send((e as Error).message);
     }
 };

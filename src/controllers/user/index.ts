@@ -4,6 +4,21 @@ import { IdParamSchema } from '../validations';
 
 
 const prisma = new PrismaClient()
+// Create user
+export const createUser = async (req: Request, res: Response) => {
+
+    try {
+        console.log(req.body);
+
+        const newUser = await prisma.user.create({
+            data: req.body
+        })
+        !newUser && res.status(400).send({ message: 'Users not found' });
+        return res.json(newUser)
+    } catch (error) {
+        console.error('Error getting users:', error);
+    }
+};
 
 // Get all users
 export const getUsers = async (req: Request, res: Response) => {

@@ -5,3 +5,6 @@ npm install @prisma/client
 prisma generate (when changes in the schema for ex: new model is added)
 
 prisma migrate dev --name first 
+git credential-manager github --help
+git credential-manager github list
+git credential-manager github login
